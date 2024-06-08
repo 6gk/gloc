@@ -1,7 +1,4 @@
-import requests
-import json
-import click
-import time
+import requests, json, click, time
 from os import name, system
 
 def c():
@@ -11,23 +8,25 @@ def c():
         _ = system('clear')
 
 @click.command()
-@click.option('--ip', '-ip', help='IP address to geolocate.', required=True)
+@click.option('-ip', help='IP address to geolocate.', required=True)
 
 def geolocate(ip):
     r = requests.get('http://ip-api.com/json/' + ip)
+    j = r.json()
     c()
-    print('Geolocating {}'.format(r.json()['query']))
-    time.sleep(1.5)
-    print('Latitude: {}'.format(str(r.json()['lat'])))
-    print('Longitude: {}'.format(str(r.json()['lon'])))
-    print('City: {}'.format(r.json()['city']))
-    print('Region/State: {}'.format(r.json()['region']))
-    print('Country: {}'.format(r.json()['country']))
-    print('Zip code: {}'.format(r.json()['zip']))
-    print('Timezone: {}'.format(r.json()['timezone']))
-    print('ISP: {}'.format(r.json()['isp']))
-    print('ORG: {}'.format(r.json()['org']))
-    print('AS: {}'.format(r.json()['as']))
+    print('Geolocating {}'.format(j['query']))
+    time.sleep(1)
+    c()
+    print('Latitude: {}'.format(str(j['lat'])))
+    print('Longitude: {}'.format(str(j['lon'])))
+    print('City: {}'.format(j['city']))
+    print('Region/State: {}'.format(j['region']))
+    print('Country: {}'.format(j['country']))
+    print('Zip code: {}'.format(j['zip']))
+    print('Timezone: {}'.format(j['timezone']))
+    print('ISP: {}'.format(j['isp']))
+    print('ORG: {}'.format(j['org']))
+    print('AS: {}'.format(j['as']))
 
 if __name__ == '__main__':
     geolocate()
